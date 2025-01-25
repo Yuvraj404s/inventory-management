@@ -1,7 +1,6 @@
-// src/components/EditItemModal.js
 import React, { useState } from "react";
 
-function EditItemModal({ item, onClose, onSave }) {
+function EditItemModal({ item, onClose, onSave, nightMode }) {
   const [updatedItem, setUpdatedItem] = useState(item);
 
   const handleSubmit = (e) => {
@@ -20,54 +19,66 @@ function EditItemModal({ item, onClose, onSave }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-5 rounded shadow-lg">
-        <h2 className="text-xl font-bold mb-4">Edit Item</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block mb-2">Name</label>
+      <div className={nightMode ? "bg-gray-800 p-6 rounded-lg shadow-lg w-96" : "bg-gray-200 p-6 rounded-lg shadow-lg w-96"}>
+        <h2 className={nightMode ? "text-3xl font-semibold text-blue-200 text-center mb-4" : "text-3xl font-semibold text-blue-800 text-center mb-4"}>
+          Edit Item
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-white mb-2">Name</label>
             <input
               type="text"
-              className="border p-2 w-full"
+              className={`w-full p-2 mb-4 border rounded ${
+                nightMode ? "bg-gray-700 text-white border-gray-600" : "border-gray-300"
+              }`}
               value={updatedItem.name}
               onChange={(e) =>
                 setUpdatedItem({ ...updatedItem, name: e.target.value })
               }
             />
           </div>
-          <div className="mb-4">
-            <label className="block mb-2">Category</label>
+          <div>
+            <label className="block text-sm font-medium text-white mb-2">
+              Category
+            </label>
             <input
               type="text"
-              className="border p-2 w-full"
+              className={`w-full p-2 mb-4 border rounded ${
+                nightMode ? "bg-gray-700 text-white border-gray-600" : "border-gray-300"
+              }`}
               value={updatedItem.category}
               onChange={(e) =>
                 setUpdatedItem({ ...updatedItem, category: e.target.value })
               }
             />
           </div>
-          <div className="mb-4">
-            <label className="block mb-2">Quantity</label>
+          <div>
+            <label className="block text-sm font-medium text-white mb-2">
+              Quantity
+            </label>
             <input
               type="number"
-              className="border p-2 w-full"
+              className={`w-full p-2 mb-4 border rounded ${
+                nightMode ? "bg-gray-700 text-white border-gray-600" : "border-gray-300"
+              }`}
               value={updatedItem.quantity}
               onChange={(e) =>
-                setUpdatedItem({
-                  ...updatedItem,
-                  quantity: e.target.value,
-                })
+                setUpdatedItem({ ...updatedItem, quantity: e.target.value })
               }
             />
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-end space-x-4">
             <button
               type="button"
-              className="mr-2 p-2 bg-gray-300 rounded"
+              className="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-800 transition-all"
               onClick={onClose}
             >
               Cancel
             </button>
-            <button type="submit" className="p-2 bg-blue-500 text-white rounded">
+            <button
+              type="submit"
+              className="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-900 transition-all"
+            >
               Save
             </button>
           </div>
